@@ -1,0 +1,31 @@
+{
+  "name": "airpulse-backend",
+  "version": "1.0.0",
+  "description": "AirPulse — Real-Time Air Quality Monitoring, Analytics & Predictive Alerting System",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "client": "npm run dev --prefix client",
+    "client:dev": "npm run dev --prefix client",
+    "client:build": "npm run build --prefix client",
+    "test": "node test_endpoints.js"
+  },
+  "keywords": [
+    "air-quality",
+    "waqi",
+    "aqi",
+    "react",
+    "dashboard"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.20.0",
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "node-cron": "^4.6.0",
+    "sqlite3": "^6.0.1"
+  }
+}

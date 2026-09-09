@@ -1,0 +1,1651 @@
+/* ==========================================================================
+   AirPulse AI — Intelligent Design System
+   Aurora Dark Theme · Space Grotesk · Violet/Indigo/Pink Palette
+   ========================================================================== */
+
+:root {
+  /* ── Deep Space Canvas ─────────────────────────────────────────────────── */
+  --bg-canvas:           #03050D;
+  --bg-surface:          rgba(12, 8, 30, 0.75);
+  --bg-surface-elevated: rgba(20, 14, 48, 0.88);
+  --bg-surface-subtle:   rgba(124, 58, 237, 0.06);
+  --border-subtle:       rgba(124, 58, 237, 0.18);
+  --border-highlight:    rgba(168, 85, 247, 0.35);
+
+  /* ── Typography ────────────────────────────────────────────────────────── */
+  --text-primary:   #F0EEFF;
+  --text-secondary: #A89FCC;
+  --text-tertiary:  #6B5F8A;
+  --text-inverse:   #03050D;
+
+  /* ── AI Accent Palette ─────────────────────────────────────────────────── */
+  --accent-violet:       #7C3AED;
+  --accent-violet-light: #9B5FF0;
+  --accent-indigo:       #6366F1;
+  --accent-pink:         #EC4899;
+  --accent-cyan:         #7C3AED;   /* aliased so existing components pick up violet */
+  --accent-cyan-glow:    rgba(124, 58, 237, 0.28);
+  --accent-blue:         #6366F1;
+
+  /* ── Gradient definitions (used via CSS vars) ──────────────────────────── */
+  --grad-primary:  linear-gradient(135deg, #7C3AED 0%, #6366F1 50%, #EC4899 100%);
+  --grad-subtle:   linear-gradient(135deg, rgba(124,58,237,0.15) 0%, rgba(236,72,153,0.08) 100%);
+  --grad-card:     linear-gradient(145deg, rgba(20,14,48,0.9) 0%, rgba(12,8,30,0.7) 100%);
+  --grad-glow-v:   radial-gradient(ellipse at center, rgba(124,58,237,0.35) 0%, transparent 70%);
+  --grad-glow-p:   radial-gradient(ellipse at center, rgba(236,72,153,0.3) 0%, transparent 70%);
+
+  /* ── AQI Severity (kept for semantic colour-coding) ────────────────────── */
+  --aqi-good:                    #10B981;
+  --aqi-good-bg:                 rgba(16, 185, 129, 0.10);
+  --aqi-good-glow:               rgba(16, 185, 129, 0.28);
+
+  --aqi-moderate:                #F59E0B;
+  --aqi-moderate-bg:             rgba(245, 158, 11, 0.10);
+  --aqi-moderate-glow:           rgba(245, 158, 11, 0.28);
+
+  --aqi-unhealthy-sensitive:     #F97316;
+  --aqi-unhealthy-sensitive-bg:  rgba(249, 115, 22, 0.10);
+  --aqi-unhealthy-sensitive-glow:rgba(249, 115, 22, 0.28);
+
+  --aqi-unhealthy:               #EF4444;
+  --aqi-unhealthy-bg:            rgba(239, 68, 68, 0.10);
+  --aqi-unhealthy-glow:          rgba(239, 68, 68, 0.32);
+
+  --aqi-very-unhealthy:          #A855F7;
+  --aqi-very-unhealthy-bg:       rgba(168, 85, 247, 0.10);
+  --aqi-very-unhealthy-glow:     rgba(168, 85, 247, 0.32);
+
+  --aqi-hazardous:               #BE123C;
+  --aqi-hazardous-bg:            rgba(190, 18, 60, 0.12);
+  --aqi-hazardous-glow:          rgba(190, 18, 60, 0.38);
+
+  /* ── Shape & Shadow ────────────────────────────────────────────────────── */
+  --radius-sm:   8px;
+  --radius-md:   14px;
+  --radius-lg:   20px;
+  --radius-xl:   28px;
+  --radius-pill: 9999px;
+
+  --shadow-glass: 0 8px 32px -4px rgba(0,0,0,0.6),
+                  0 0 0 1px var(--border-subtle),
+                  inset 0 1px 0 rgba(255,255,255,0.05);
+  --shadow-hover: 0 20px 50px -10px rgba(124,58,237,0.3),
+                  0 0 0 1px var(--border-highlight),
+                  inset 0 1px 0 rgba(255,255,255,0.08);
+  --shadow-glow-v: 0 0 30px rgba(124,58,237,0.4), 0 0 60px rgba(124,58,237,0.15);
+  --shadow-glow-p: 0 0 30px rgba(236,72,153,0.4), 0 0 60px rgba(236,72,153,0.15);
+
+  /* ── Fonts ─────────────────────────────────────────────────────────────── */
+  --font-display: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-body:    'Sora', -apple-system, BlinkMacSystemFont, sans-serif;
+
+  /* ── Transition presets ────────────────────────────────────────────────── */
+  --ease-spring: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ==========================================================================
+   CSS Reset & Base
+   ========================================================================== */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--bg-canvas);
+  color: var(--text-primary);
+  min-height: 100vh;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* ── Aurora Mesh Background ──────────────────────────────────────────────── */
+/* Orb 1: Violet — top-left */
+body::before {
+  content: '';
+  position: fixed;
+  top: -180px;
+  left: -180px;
+  width: 700px;
+  height: 700px;
+  background: radial-gradient(ellipse at center,
+    rgba(124, 58, 237, 0.22) 0%,
+    rgba(99, 102, 241, 0.10) 45%,
+    transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+  animation: auroraFloat1 18s ease-in-out infinite;
+}
+
+/* Orb 2: Pink — bottom-right */
+body::after {
+  content: '';
+  position: fixed;
+  bottom: -200px;
+  right: -200px;
+  width: 800px;
+  height: 800px;
+  background: radial-gradient(ellipse at center,
+    rgba(236, 72, 153, 0.18) 0%,
+    rgba(124, 58, 237, 0.08) 50%,
+    transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+  animation: auroraFloat2 22s ease-in-out infinite;
+}
+
+@keyframes auroraFloat1 {
+  0%, 100% { transform: translate(0, 0) scale(1);     opacity: 0.9; }
+  33%       { transform: translate(80px, 60px) scale(1.15); opacity: 1;   }
+  66%       { transform: translate(-30px, 40px) scale(0.9); opacity: 0.8; }
+}
+
+@keyframes auroraFloat2 {
+  0%, 100% { transform: translate(0, 0) scale(1);      opacity: 0.85; }
+  40%       { transform: translate(-60px, -80px) scale(1.2); opacity: 1;   }
+  70%       { transform: translate(40px, 30px) scale(0.88);  opacity: 0.75; }
+}
+
+/* Third subtle orb — mid-page indigo */
+#root::before {
+  content: '';
+  position: fixed;
+  top: 40%;
+  left: 55%;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(ellipse at center,
+    rgba(99, 102, 241, 0.12) 0%,
+    transparent 65%);
+  pointer-events: none;
+  z-index: 0;
+  animation: auroraFloat3 15s ease-in-out infinite;
+  transform: translate(-50%, -50%);
+}
+
+@keyframes auroraFloat3 {
+  0%, 100% { transform: translate(-50%, -50%) scale(1);    opacity: 0.7; }
+  50%       { transform: translate(-45%, -55%) scale(1.25); opacity: 1;   }
+}
+
+/* ── Noise Texture Overlay ───────────────────────────────────────────────── */
+/* Adds the subtle film-grain texture common in AI design */
+body > #root {
+  isolation: isolate;
+}
+body > #root::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  background-size: 256px 256px;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.4;
+  mix-blend-mode: overlay;
+}
+
+/* Scrollbar — violet tinted */
+::-webkit-scrollbar { width: 7px; height: 7px; }
+::-webkit-scrollbar-track  { background: rgba(3, 5, 13, 0.9); }
+::-webkit-scrollbar-thumb  { background: rgba(124, 58, 237, 0.4); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(124, 58, 237, 0.65); }
+
+/* App Container */
+.app-container {
+  position: relative;
+  z-index: 1;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 1.5rem 2rem 4rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+
+
+/* ==========================================================================
+   Header Styles — AI Edition
+   ========================================================================== */
+
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  background: rgba(12, 8, 30, 0.82);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(124, 58, 237, 0.22);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-glass),
+              inset 0 1px 0 rgba(255,255,255,0.06);
+  /* Subtle top gradient line */
+  position: relative;
+  overflow: hidden;
+}
+
+.app-header::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    rgba(124, 58, 237, 0.7) 30%,
+    rgba(236, 72, 153, 0.7) 70%,
+    transparent 100%);
+}
+
+.brand-section {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+}
+
+.brand-logo-wrap {
+  position: relative;
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-md);
+  background: rgba(124, 58, 237, 0.12);
+  border: 1px solid rgba(124, 58, 237, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 20px rgba(124, 58, 237, 0.25),
+              inset 0 1px 0 rgba(255,255,255,0.08);
+  flex-shrink: 0;
+}
+
+.brand-title {
+  font-family: var(--font-display);
+  font-size: 1.65rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  background: linear-gradient(135deg, #E0D8FF 0%, #C4B5FD 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.brand-title-ai {
+  background: linear-gradient(135deg, #7C3AED 0%, #EC4899 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 800;
+}
+
+.brand-subtitle {
+  font-size: 0.72rem;
+  color: var(--text-tertiary);
+  margin-top: 1px;
+  letter-spacing: 0.01em;
+}
+
+.brand-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-family: var(--font-body);
+  font-size: 0.62rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  padding: 0.22rem 0.65rem;
+  border-radius: var(--radius-pill);
+  background: linear-gradient(135deg, rgba(124,58,237,0.2), rgba(236,72,153,0.12));
+  color: #C4B5FD;
+  border: 1px solid rgba(124, 58, 237, 0.35);
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.header-stat-chip {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  background: rgba(124, 58, 237, 0.08);
+  padding: 0.4rem 0.8rem;
+  border-radius: var(--radius-pill);
+  border: 1px solid rgba(124, 58, 237, 0.2);
+}
+
+.live-indicator {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #34D399;
+  background: rgba(16, 185, 129, 0.08);
+  padding: 0.38rem 0.85rem;
+  border-radius: var(--radius-pill);
+  border: 1px solid rgba(16, 185, 129, 0.22);
+}
+
+.pulse-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #10B981;
+  box-shadow: 0 0 8px #10B981;
+  animation: pulseRadar 2s infinite ease-in-out;
+}
+
+@keyframes pulseRadar {
+  0%   { transform: scale(0.9);  box-shadow: 0 0 0 0   rgba(16, 185, 129, 0.7); }
+  70%  { transform: scale(1.15); box-shadow: 0 0 0 7px rgba(16, 185, 129, 0); }
+  100% { transform: scale(0.9);  box-shadow: 0 0 0 0   rgba(16, 185, 129, 0); }
+}
+
+.refresh-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  background: linear-gradient(135deg, rgba(124,58,237,0.18), rgba(99,102,241,0.12));
+  border: 1px solid rgba(124, 58, 237, 0.35);
+  color: #C4B5FD;
+  padding: 0.5rem 1.1rem;
+  border-radius: var(--radius-md);
+  font-size: 0.82rem;
+  font-weight: 600;
+  font-family: var(--font-body);
+  cursor: pointer;
+  transition: all 0.2s var(--ease-smooth);
+}
+
+.refresh-btn:hover {
+  background: linear-gradient(135deg, rgba(124,58,237,0.32), rgba(99,102,241,0.22));
+  border-color: rgba(168, 85, 247, 0.55);
+  color: #E0D8FF;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(124, 58, 237, 0.25);
+}
+
+.refresh-btn:active  { transform: translateY(0); }
+.refresh-btn.spinning svg { animation: spin 1s linear infinite; }
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.countdown-text {
+  font-size: 0.75rem;
+  color: var(--text-tertiary);
+}
+
+/* ==========================================================================
+   City Selector & Search
+   ========================================================================== */
+
+.city-nav-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.city-pills-row {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  overflow-x: auto;
+  padding-bottom: 0.25rem;
+  scrollbar-width: none;
+}
+.city-pills-row::-webkit-scrollbar {
+  display: none;
+}
+
+.city-pill {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-secondary);
+  padding: 0.6rem 1.25rem;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.city-pill:hover {
+  color: var(--text-primary);
+  border-color: var(--border-highlight);
+  background: var(--bg-surface-elevated);
+}
+
+.city-pill.active {
+  background: linear-gradient(135deg, rgba(124, 58, 237, 0.28), rgba(99, 102, 241, 0.2));
+  color: #E0D8FF;
+  border-color: rgba(124, 58, 237, 0.7);
+  box-shadow: 0 0 18px rgba(124, 58, 237, 0.35),
+              inset 0 1px 0 rgba(255,255,255,0.08);
+}
+
+.search-input-wrap {
+  position: relative;
+  max-width: 420px;
+}
+
+.search-icon {
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-tertiary);
+  pointer-events: none;
+}
+
+.city-search-input {
+  width: 100%;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-pill);
+  padding: 0.65rem 1rem 0.65rem 2.8rem;
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.city-search-input:focus {
+  border-color: var(--accent-violet);
+  box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.2);
+}
+
+.city-search-input::placeholder {
+  color: var(--text-tertiary);
+}
+
+/* ==========================================================================
+   Hero AQI Card
+   ========================================================================== */
+
+.hero-dashboard-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 1.75rem;
+}
+
+.hero-card {
+  position: relative;
+  background: var(--grad-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-xl);
+  padding: 2.25rem;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: var(--shadow-glass);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hero-card::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -50%;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, var(--glow-color, rgba(6, 182, 212, 0.15)) 0%, rgba(0, 0, 0, 0) 70%);
+  pointer-events: none;
+  z-index: 0;
+  transition: background 0.5s ease;
+}
+
+.hero-top-meta {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1.5rem;
+}
+
+.city-title-group h2 {
+  font-family: var(--font-display);
+  font-size: 2.4rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.station-label {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  margin-top: 0.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.hero-center-gauge {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 2.5rem;
+  margin: 1.25rem 0;
+}
+
+.aqi-dial-wrapper {
+  position: relative;
+  width: 190px;
+  height: 190px;
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at 50% 50%, rgba(15, 23, 42, 0.95), rgba(7, 10, 19, 0.9));
+  border: 3px solid var(--aqi-color, var(--accent-cyan));
+  box-shadow: 0 0 35px var(--aqi-glow, var(--accent-cyan-glow)), inset 0 0 20px rgba(0, 0, 0, 0.6);
+  flex-shrink: 0;
+}
+
+.aqi-dial-number {
+  font-family: var(--font-display);
+  font-size: 4.5rem;
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  color: var(--aqi-color, #FFFFFF);
+  text-shadow: 0 0 20px var(--aqi-glow, transparent);
+}
+
+.aqi-dial-label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--text-tertiary);
+  margin-top: 0.25rem;
+}
+
+.hero-severity-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.severity-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.45rem 1.1rem;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 700;
+  width: fit-content;
+  color: var(--aqi-color, #FFFFFF);
+  background: var(--aqi-bg, rgba(255, 255, 255, 0.05));
+  border: 1px solid var(--aqi-color, var(--border-subtle));
+}
+
+.health-advice-box {
+  font-size: 0.975rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  max-width: 440px;
+}
+
+.dominant-badge {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  background: var(--bg-surface-subtle);
+  padding: 0.35rem 0.8rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-subtle);
+  width: fit-content;
+}
+
+.hero-footer-meta {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--border-subtle);
+  font-size: 0.8rem;
+  color: var(--text-tertiary);
+}
+
+.countdown-text {
+  font-size: 0.78rem;
+  color: var(--text-tertiary);
+  letter-spacing: 0.01em;
+}
+
+/* ==========================================================================
+   Section Title Row
+   ========================================================================== */
+
+.section-title {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  background: linear-gradient(135deg, #E0D8FF 0%, #C4B5FD 60%, #EC4899 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ==========================================================================
+   Pollutant Grid (6 Cards)
+   ========================================================================== */
+
+.pollutants-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.pollutants-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+}
+
+.pollutant-card {
+  background: var(--grad-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 1.25rem 1.4rem;
+  backdrop-filter: blur(14px);
+  box-shadow: var(--shadow-glass);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 0.85rem;
+  transition: all 0.25s var(--ease-spring);
+  position: relative;
+  overflow: hidden;
+}
+
+.pollutant-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 2px;
+  height: 100%;
+  background: var(--grad-primary);
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.pollutant-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(124, 58, 237, 0.35);
+  box-shadow: var(--shadow-hover);
+}
+
+.pollutant-card:hover::before {
+  opacity: 1;
+}
+
+.pollutant-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.pollutant-code {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--text-primary);
+}
+
+.pollutant-name {
+  font-size: 0.75rem;
+  color: var(--text-tertiary);
+  margin-top: 0.15rem;
+}
+
+.pollutant-badge {
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 0.2rem 0.5rem;
+  border-radius: var(--radius-pill);
+}
+
+.pollutant-value-row {
+  display: flex;
+  align-items: baseline;
+  gap: 0.4rem;
+}
+
+.pollutant-value {
+  font-family: var(--font-display);
+  font-size: 2.1rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  line-height: 1;
+}
+
+.pollutant-unit {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-tertiary);
+}
+
+/* Threshold Progress Bar */
+.pollutant-bar-wrap {
+  width: 100%;
+  height: 5px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.pollutant-bar-fill {
+  height: 100%;
+  border-radius: 3px;
+  transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.pollutant-danger-info {
+  font-size: 0.75rem;
+  color: var(--text-tertiary);
+  line-height: 1.35;
+}
+
+/* ==========================================================================
+   Historical Trend Chart Component
+   ========================================================================== */
+
+.chart-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-xl);
+  padding: 1.75rem;
+  backdrop-filter: blur(16px);
+  box-shadow: var(--shadow-glass);
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.chart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.chart-title-group h3 {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.chart-subtitle {
+  font-size: 0.8rem;
+  color: var(--text-tertiary);
+  margin-top: 0.15rem;
+}
+
+.chart-time-tabs {
+  display: flex;
+  gap: 0.4rem;
+  background: rgba(255, 255, 255, 0.04);
+  padding: 0.25rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-subtle);
+}
+
+.chart-tab-btn {
+  background: none;
+  border: none;
+  padding: 0.3rem 0.8rem;
+  border-radius: 6px;
+  color: var(--text-secondary);
+  font-size: 0.75rem;
+  font-weight: 600;
+  font-family: var(--font-body);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.chart-tab-btn.active {
+  background: var(--bg-surface-elevated);
+  color: var(--text-primary);
+}
+
+.svg-chart-container {
+  width: 100%;
+  height: 280px;
+  position: relative;
+}
+
+.svg-chart-container svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+/* Chart Tooltip */
+.chart-tooltip {
+  position: absolute;
+  pointer-events: none;
+  background: rgba(15, 23, 42, 0.95);
+  border: 1px solid var(--border-highlight);
+  border-radius: var(--radius-sm);
+  padding: 0.5rem 0.85rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+  font-size: 0.75rem;
+  z-index: 10;
+  transform: translate(-50%, -120%);
+  transition: opacity 0.15s ease, transform 0.15s ease;
+}
+
+.chart-tooltip-time {
+  color: var(--text-tertiary);
+  margin-bottom: 0.2rem;
+}
+
+.chart-tooltip-val {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 800;
+}
+
+/* ==========================================================================
+   Multi-City Comparison Grid
+   ========================================================================== */
+
+.comparison-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.comparison-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 1rem;
+}
+
+.comparison-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 1.15rem 1rem;
+  backdrop-filter: blur(12px);
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  position: relative;
+}
+
+.comparison-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--border-highlight);
+  background: var(--bg-surface-elevated);
+}
+
+.comparison-card.active {
+  border-color: var(--accent-cyan);
+  box-shadow: 0 0 20px rgba(6, 182, 212, 0.25);
+}
+
+.comp-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.comp-city-name {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.comp-rank-badge {
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: var(--text-tertiary);
+}
+
+.comp-aqi-row {
+  display: flex;
+  align-items: baseline;
+  gap: 0.4rem;
+}
+
+.comp-aqi-val {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.comp-status-tag {
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 0.2rem 0.5rem;
+  border-radius: var(--radius-pill);
+  width: fit-content;
+}
+
+.comp-dominant {
+  font-size: 0.7rem;
+  color: var(--text-tertiary);
+}
+
+/* ==========================================================================
+   Footer & System Bar
+   ========================================================================== */
+
+.app-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.25rem 0;
+  border-top: 1px solid var(--border-subtle);
+  font-size: 0.8rem;
+  color: var(--text-tertiary);
+}
+
+.footer-db-status {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.status-dot-green {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #10b981;
+}
+
+/* ==========================================================================
+   Responsive Adaptations
+   ========================================================================== */
+
+@media (max-width: 1200px) {
+  .hero-dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+  .comparison-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .pollutants-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .app-container {
+    padding: 1rem 1rem 3rem 1rem;
+    gap: 1.5rem;
+  }
+  .app-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  .header-actions {
+    width: 100%;
+    justify-content: space-between;
+  }
+  .hero-card {
+    padding: 1.5rem;
+  }
+  .hero-center-gauge {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 1.5rem;
+  }
+  .hero-severity-content {
+    align-items: center;
+  }
+  .pollutants-grid {
+    grid-template-columns: 1fr;
+  }
+  .comparison-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .app-footer {
+    flex-direction: column;
+    gap: 0.75rem;
+    align-items: flex-start;
+  }
+}
+
+/* ==========================================================================
+   Phase 3 — Alert Panel
+   ========================================================================== */
+
+.alert-panel-section {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: var(--shadow-glass);
+  overflow: hidden;
+}
+
+.alert-panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.35rem;
+  cursor: pointer;
+  user-select: none;
+  transition: background 0.2s ease;
+}
+
+.alert-panel-header:hover {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.alert-icon-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-md);
+  flex-shrink: 0;
+}
+
+.alert-panel-title {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.alert-triggered-badge {
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.07em;
+  padding: 0.2rem 0.55rem;
+  border-radius: var(--radius-pill);
+  background: rgba(239, 68, 68, 0.2);
+  color: #ef4444;
+  border: 1px solid rgba(239, 68, 68, 0.4);
+  animation: pulseBadge 1.5s ease-in-out infinite;
+}
+
+@keyframes pulseBadge {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.55; }
+}
+
+.alert-panel-sub {
+  font-size: 0.78rem;
+  color: var(--text-tertiary);
+  margin-top: 0.1rem;
+}
+
+.notif-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-secondary);
+  padding: 0.35rem 0.85rem;
+  border-radius: var(--radius-pill);
+  font-size: 0.78rem;
+  font-weight: 600;
+  font-family: var(--font-body);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.notif-btn:hover {
+  background: rgba(6, 182, 212, 0.1);
+  border-color: rgba(6, 182, 212, 0.4);
+  color: var(--accent-cyan);
+}
+
+.alert-panel-body {
+  padding: 0 1.35rem 1.35rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* ── Alert Banner ─────────────────────────────────────────────────────────── */
+
+.alert-banner {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 1.15rem;
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--alert-color) 15%, transparent),
+    color-mix(in srgb, var(--alert-color) 5%, transparent)
+  );
+  border: 1px solid;
+  border-radius: var(--radius-md);
+  animation: bannerSlideIn 0.35s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes bannerSlideIn {
+  from { opacity: 0; transform: translateY(-10px) scaleY(0.95); }
+  to   { opacity: 1; transform: translateY(0)     scaleY(1); }
+}
+
+.alert-banner-left {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.85rem;
+}
+
+.alert-banner-icon {
+  font-size: 1.5rem;
+  line-height: 1;
+  flex-shrink: 0;
+  animation: alertIconPulse 1.2s ease-in-out infinite;
+}
+
+@keyframes alertIconPulse {
+  0%, 100% { transform: scale(1);    }
+  50%       { transform: scale(1.25); }
+}
+
+.alert-banner-title {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin-bottom: 0.2rem;
+}
+
+.alert-banner-body {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.alert-banner-close {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--text-tertiary);
+  padding: 0.2rem;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  border-radius: 4px;
+  transition: color 0.15s ease;
+}
+
+.alert-banner-close:hover {
+  color: var(--text-primary);
+}
+
+/* ── Threshold Slider ─────────────────────────────────────────────────────── */
+
+.threshold-control {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.threshold-label-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.threshold-label {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+}
+
+.threshold-value-badge {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 800;
+}
+
+.slider-track-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.threshold-slider {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 6px;
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.1);
+  outline: none;
+  cursor: pointer;
+}
+
+.threshold-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--thumb-color, var(--accent-cyan));
+  border: 2px solid rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 12px var(--thumb-color, var(--accent-cyan));
+  cursor: pointer;
+  transition: box-shadow 0.2s ease, transform 0.15s ease;
+}
+
+.threshold-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+}
+
+.slider-legend {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.65rem;
+  font-weight: 600;
+}
+
+.threshold-status-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.threshold-status-chip {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.8rem;
+  background: var(--bg-surface-subtle);
+  padding: 0.35rem 0.75rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-subtle);
+}
+
+.threshold-aqi-val {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 800;
+}
+
+.threshold-gap-chip {
+  padding: 0.35rem 0.85rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+/* ==========================================================================
+   Phase 3 — Health Recommendation Panel
+   ========================================================================== */
+
+.health-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.health-panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.forecast-trend-pill {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-subtle);
+  padding: 0.35rem 0.85rem;
+  border-radius: var(--radius-pill);
+}
+
+.health-panel-grid {
+  display: grid;
+  grid-template-columns: 0.85fr 1.2fr 1.2fr;
+  gap: 1.25rem;
+}
+
+@media (max-width: 1100px) {
+  .health-panel-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .worst-pollutant-card {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 700px) {
+  .health-panel-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.health-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 1.35rem;
+  backdrop-filter: blur(12px);
+  box-shadow: var(--shadow-glass);
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.health-card-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-display);
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+/* Worst Pollutant Card */
+.worst-poll-name {
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  font-weight: 900;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+}
+
+.worst-poll-full {
+  font-size: 0.78rem;
+  color: var(--text-tertiary);
+  margin-top: -0.5rem;
+}
+
+.worst-poll-value {
+  display: flex;
+  align-items: baseline;
+  margin-top: 0.1rem;
+}
+
+.worst-poll-ratio {
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.worst-poll-bar-wrap {
+  height: 5px;
+  background: rgba(255, 255, 255, 0.07);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.worst-poll-bar {
+  height: 100%;
+  border-radius: 3px;
+  transition: width 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Recommendation items */
+.rec-item-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.rec-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.55rem;
+  font-size: 0.83rem;
+  color: var(--text-secondary);
+  line-height: 1.45;
+}
+
+.rec-item-icon {
+  flex-shrink: 0;
+  font-size: 0.95rem;
+  margin-top: 0.05rem;
+}
+
+.rec-item-label {
+  line-height: 1.4;
+}
+
+/* Forecast warning chips inside health panel */
+.forecast-warning-chip {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #f97316;
+  background: rgba(249, 115, 22, 0.12);
+  border: 1px solid rgba(249, 115, 22, 0.3);
+  border-radius: var(--radius-sm);
+  padding: 0.45rem 0.75rem;
+  line-height: 1.4;
+}
+
+.forecast-good-chip {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #10b981;
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.25);
+  border-radius: var(--radius-sm);
+  padding: 0.45rem 0.75rem;
+  line-height: 1.4;
+}
+
+/* ==========================================================================
+   Phase 3 — Chart Forecast Legend Chip
+   ========================================================================== */
+
+.forecast-legend-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #a855f7;
+  background: rgba(168, 85, 247, 0.12);
+  border: 1px solid rgba(168, 85, 247, 0.3);
+  padding: 0.2rem 0.65rem;
+  border-radius: var(--radius-pill);
+}
+
+/* ==========================================================================
+   Phase 3 — Alert History Drawer
+   ========================================================================== */
+
+.alert-drawer {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  backdrop-filter: blur(12px);
+}
+
+.alert-drawer-toggle {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.85rem 1.25rem;
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.alert-drawer-toggle:hover {
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--text-primary);
+}
+
+.alert-drawer-count {
+  background: rgba(6, 182, 212, 0.15);
+  color: var(--accent-cyan);
+  border: 1px solid rgba(6, 182, 212, 0.3);
+  font-size: 0.68rem;
+  font-weight: 800;
+  padding: 0.1rem 0.5rem;
+  border-radius: var(--radius-pill);
+}
+
+.alert-drawer-body {
+  border-top: 1px solid var(--border-subtle);
+  max-height: 320px;
+  overflow-y: auto;
+  padding: 1rem 1.25rem;
+}
+
+.alert-drawer-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1.5rem 0;
+  color: var(--text-tertiary);
+  font-size: 0.875rem;
+  text-align: center;
+}
+
+.alert-history-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.alert-history-row {
+  display: grid;
+  grid-template-columns: 120px 1fr auto auto;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.6rem 0;
+  border-bottom: 1px solid var(--border-subtle);
+  transition: background 0.15s ease;
+}
+
+.alert-history-row:last-child {
+  border-bottom: none;
+}
+
+.alert-history-row:hover {
+  background: rgba(255, 255, 255, 0.025);
+  border-radius: var(--radius-sm);
+}
+
+.ahr-city-col {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.ahr-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.ahr-city {
+  font-family: var(--font-display);
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.ahr-aqi-col {
+  display: flex;
+  align-items: baseline;
+  gap: 0.3rem;
+}
+
+.ahr-aqi {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 900;
+}
+
+.ahr-threshold {
+  font-size: 0.75rem;
+  color: var(--text-tertiary);
+  font-weight: 500;
+}
+
+.ahr-poll-col {
+  min-width: 50px;
+}
+
+.ahr-poll-badge {
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  padding: 0.18rem 0.55rem;
+  background: rgba(6, 182, 212, 0.1);
+  color: var(--accent-cyan);
+  border: 1px solid rgba(6, 182, 212, 0.25);
+  border-radius: var(--radius-pill);
+}
+
+.ahr-time-col {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.75rem;
+  color: var(--text-tertiary);
+  white-space: nowrap;
+}
+
