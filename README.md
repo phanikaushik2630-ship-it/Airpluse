@@ -14,9 +14,18 @@
 ## 🔗 Live Demo & Links
 
 - **Repository**: [https://github.com/phanikaushik2630-ship-it/Airpluse](https://github.com/phanikaushik2630-ship-it/Airpluse)
+- **🚀 Live Demo**: [https://airpluse.onrender.com](https://airpluse.onrender.com) *(Deploy via Render — see Quick Start below)*
 - **Local Web Dashboard**: `http://localhost:5173`
 - **Backend API Service**: `http://localhost:5000`
 - **API Health & Verification**: `http://localhost:5000/api/status`
+
+---
+
+## 📸 Dashboard Preview
+
+![AirPulse AI Dashboard — Real-Time Air Quality Monitoring](./docs/dashboard-preview.jpg)
+
+> **AirPulse AI** cyberpunk glassmorphism dashboard showing real-time Delhi AQI=178 (Unhealthy), PM2.5/PM10/NO2/SO2/CO/O3 pollutant grid, 12-hour predictive forecast chart with deteriorating trend, and health recommendations panel.
 
 ---
 
