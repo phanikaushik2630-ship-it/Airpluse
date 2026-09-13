@@ -1,0 +1,25 @@
+services:
+  - type: web
+    name: airpluse
+    runtime: node
+    buildCommand: npm install && npm install --prefix client && npm run client:build
+    startCommand: node server.js
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+      - key: WAQI_API_TOKEN
+        sync: false          # You'll paste your token in Render dashboard
+      - key: MONITORED_CITIES
+        value: Delhi,Mumbai,Hyderabad,Bengaluru,Kolkata,Chennai
+      - key: POLL_INTERVAL_CRON
+        value: "*/15 * * * *"
+      - key: AUTO_POLL_ENABLED
+        value: "true"
+      - key: DB_PATH
+        value: ./data/airpulse.sqlite
+    disk:
+      name: airpulse-data
+      mountPath: /opt/render/project/src/data
+      sizeGB: 1
